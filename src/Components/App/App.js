@@ -45,12 +45,16 @@ export class App extends React.Component{
     })
   }
 
-  savePlaylist(){
+  async savePlaylist(){
     let trackURIs = {uris: []};
     this.state.playlistTracks.forEach((track)=>{
       trackURIs.uris.push(track.uri);
     });
-    Spotify.savePlaylist(this.state.playlistName,trackURIs);
+    await Spotify.savePlaylist(this.state.playlistName,trackURIs);
+    this.setState({
+      playlistName: '',
+      playlistTracks: []
+    })
   }
 
   async search(searchTerm){
